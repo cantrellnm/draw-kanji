@@ -111,7 +111,7 @@ function drawSetup() {
     }
   }
   function pointsToSvg() {
-    var pathIndex, d = 'M';
+    var pathIndex, i, d = 'M';
     if (points.length === 0) { return; }
     // first point
     d += points[0].x +','+ points[0].y;
