@@ -1,0 +1,350 @@
+// Place all the styles related to the Kanji controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+[lang="ja"] {
+  font-family: "Meiryo","Hiragino Kaku Gothic Pro","Yu Gothic","ヒラギノ角ゴ Pro W3","メイリオ","Osaka","MS PGothic","ＭＳ Ｐゴシック",sans-serif;
+  font-weight: bold;
+}
+html {
+  font-size: 1em;
+}
+body {
+  font-size: 1rem;
+}
+
+.container {
+  padding: 1rem;
+}
+.navbar {
+  background-color: red;
+  color: white;
+  border-radius: 0;
+  border: solid black 2px;
+  margin-bottom: 0;
+  & .navbar-nav {
+    margin: 0;
+  }
+  & li {
+    display: inline-block;
+  }
+  & li a, li a:visited {
+    display: inline-block;
+    color: white;
+    font-size: 25px;
+    vertical-align: middle;
+    width: 60px;
+    text-align: center;
+  }
+  & li a:hover, li a:focus, li a:active {
+    background-color: black;
+  }
+  & .icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+.notice {
+  color: #777;
+  font-weight: bold;
+}
+.alert {
+  color: red;
+  font-weight: bold;
+}
+footer {
+  font-size: .8rem;
+  margin-top: 3rem;
+}
+
+#practice-area {
+  text-align: right;
+}
+#kanjivg {
+  display: inline-block;
+  vertical-align: top;
+  & svg {
+    width: 150px;
+    height: 150px;
+    border: solid black 2px;
+  }
+}
+.grid {
+  position: relative;
+  
+  &:before, &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: black;
+  }
+  &:before {
+    width: 2px;
+    height: 150px;
+    top: 0;
+    left: 74px;
+  }
+  &:after {
+    width: 150px;
+    height: 2px;
+    top: 74px;
+    left: 0;
+  }
+}
+
+#draw {
+  cursor: pointer;
+  width: 300px;
+  height: 300px;
+  display: inline-block;
+  background-color: white;
+  border: solid black 2px;
+}
+.buttons {
+  margin: .5rem 0;
+  text-align: right;
+}
+
+
+#kanji-info {
+  text-align: right;
+  & .kanji-title, & .readings {
+    display: inline-block;
+    margin: .5rem;
+    font-size: 1.2rem;
+  }
+  & .levels {
+    display: none;
+  }
+}
+
+.title {
+  display: none;
+}
+.kanji-title {
+  font-size: 3.5rem;
+  margin: 1rem 0 .2rem;
+}
+.readings {
+  font-size: 2rem;
+  margin: .2rem 0;
+}
+.levels {
+  font-size: 1.4rem;
+  margin: .2rem 0;
+  & .level {
+    color: #777;
+  }
+}
+
+.table>tbody>tr>td {
+  padding: 2px;
+}
+#kanji-list {
+  & th:nth-of-type(2), & th:nth-of-type(3), & th:nth-of-type(4), & th:nth-of-type(5),
+  & td:nth-of-type(2), & td:nth-of-type(3), & td:nth-of-type(4), & td:nth-of-type(5) {
+    display: none;
+  }
+}
+
+a, a:visited {
+  color: red;
+}
+a:hover, a:focus, a:active {
+  color: #777;
+}
+button, .btn, a.btn {
+  font-size: 1rem;
+  border-radius: 0;
+  background-color: white;
+  border: solid black 2px;
+  color: black;
+  margin: .5rem 0;
+  &.primary {
+    background-color: red;
+    color: white;
+  }
+  &.secondary {
+    background-color: black;
+    color: white;
+  }
+  // &.on {
+  //   background-color: #777;
+  //   color: white;
+  // }
+  & .icon {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+.link:hover {
+  cursor: pointer;
+}
+a#update-account {
+  content: asset-data-url("icons/account.svg");
+}
+a#sign-out, a#sign-in {
+  content: asset-data-url("icons/exit.svg");
+}
+
+.form-inline .form-group {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.form-control {
+  border-radius: 0;
+}
+label {
+  margin: 0 .4rem;
+}
+input[type="checkbox"] {
+  margin: 0 .2rem 0 .4rem;
+}
+
+#loading, #draw-finish {
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  left: 0;
+  background-color: rgba(255,255,255,.6);
+}
+#loading svg {
+  display: block;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  margin-top: -50px;
+  margin-left: -50px;
+  top: 50%;
+  left: 50%;
+  -webkit-animation: 1s linear infinite spin;
+  -moz-animation: 1s linear infinite spin;
+  -o-animation: 1s linear infinite spin;
+  animation: 1s linear infinite spin;
+}
+.dialog-box {
+  display: inline-block;
+  background-color: white;
+  border: solid black 2px;
+  padding: 1.5rem;
+  position: relative;
+  margin-top: -50%;
+  top: 50%;
+}
+
+@-webkit-keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(365deg); } }
+@-moz-keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(365deg); } }
+@-o-keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(365deg); } }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(365deg); } }
+
+
+@media (min-width: 660px) {
+  #kanjivg svg {
+    width: 300px;
+    height: 300px;
+  }
+  .grid {
+    &:before {
+      width: 2px;
+      height: 300px;
+      top: 0;
+      left: 149px;  
+    }
+    &:after {
+      width: 300px;
+      height: 2px;
+      top: 149px;
+      left: 0;
+    }
+  }
+  #kanji-list {
+    & th:nth-of-type(2), & th:nth-of-type(3), & th:nth-of-type(4), & th:nth-of-type(5),
+    & td:nth-of-type(2), & td:nth-of-type(3), & td:nth-of-type(4), & td:nth-of-type(5) {
+      display: table-cell;
+    }
+  }
+}
+@media (min-width: 768px) {
+  .navbar {
+    position: fixed;
+    height: 100vh;
+    min-width: 50px;
+    margin-right: 20px;
+    & .navbar-nav li {
+      display: block;
+      float: none;
+    }
+  }
+  .container {
+    padding-left: 80px;
+  }
+  #draw {
+    margin-left: 1rem;
+  }
+  .table>tbody>tr>td {
+    padding: 8px;
+  }
+}
+@media (min-width: 1000px) {  
+  h1.title {
+    display: block;
+    font-size: 3.5rem;
+    margin: 1rem 0 .2rem;
+  }
+  a#update-account {
+    content: "Account";
+  }
+  a#sign-out {
+    content: "Sign Out";
+  }
+  a#sign-in {
+    content: "Sign In";
+  }
+  #form-toggle {
+    display: none;
+  }
+  .collapse {
+    display: inline-block;
+  }
+  #kanjivg svg {
+    width: 400px;
+    height: 400px;
+  }
+  .grid {
+    &:before {
+      width: 2px;
+      height: 400px;
+      top: 0;
+      left: 199px;  
+    }
+    &:after {
+      width: 400px;
+      height: 2px;
+      top: 199px;
+      left: 0;
+    }
+  }
+  #kanji-info {
+    & .kanji-title, & .readings, & .levels {
+      display: block;
+      margin: .5rem 0;
+    }
+    & .kanji-title {
+      font-size: 1.8rem;
+    }
+    & .readings {
+      font-size: 1.2rem;
+    }
+    & .levels {
+      font-size: 1rem;
+    }
+  }
+  #draw {
+    width: 400px;
+    height: 400px;
+  }
+}

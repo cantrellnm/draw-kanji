@@ -1,0 +1,10 @@
+- kanji = escape_javascript(
+- render(partial: 'kanji/single', locals: { k: @k }).html_safe
+- )
+- draw = escape_javascript(
+- render(partial: 'kanji/draw', locals: { k: @k }).html_safe
+- )
+$("#practice-area").html("#{draw}");
+$("#kanji-info").html("#{kanji}");
+$("#page-info").html("#{@total ? "Displaying #{@page} of #{@total}" : ''}")
+$("#kanji-page").val("#{@page ? @page+1 : 1}")

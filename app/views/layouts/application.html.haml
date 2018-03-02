@@ -1,0 +1,47 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}
+      %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
+        %link{:href => "/ji.png", :rel => "icon"}
+          %title Draw Kanji
+          = csrf_meta_tags
+          = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+          = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    %nav.navbar
+      %ul.nav.navbar-nav
+        %li
+          %a{:href => "/"}= image_tag(asset_path('icons/home.svg'), class: 'icon')
+        %li
+          %a{:href => "/kanji"}
+            %span{:lang => "ja"}= image_tag(asset_path('icons/search.svg'), class: 'icon')
+        %li
+          %a{:href => "/about"}= image_tag(asset_path('icons/information.svg'), class: 'icon')
+        %li
+          %a{:href => "/lists"}= image_tag(asset_path('icons/list.svg'), class: 'icon')
+    .container
+      .pull-right
+        - if current_user
+          = link_to "Account", edit_user_registration_path, class: 'btn secondary', id: 'update-account'
+          = link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'btn', id: 'sign-out'
+        - else
+          = link_to "Sign In", new_user_session_path, class: 'btn', id: 'sign-in'
+      - if notice
+        %p.notice= notice
+      - if alert
+        %p.alert= alert
+      = yield
+      #loading{style: "display: none;"}
+        %svg{:stroke => "red", :viewBox => "0 0 38 38", :xmlns => "http://www.w3.org/2000/svg"}
+          %g{:fill => "none", "fill-rule" => "evenodd"}
+            %g{"stroke-width" => "2", :transform => "translate(1 1)"}
+              %circle{:cx => "18", :cy => "18", :r => "18", "stroke-opacity" => "1"}
+              %path{:stroke => "black", :d => "M36 18c0-9.94-8.06-18-18-18"}
+      %footer
+        %small
+          Site created in 2016 by Cantrell NM.
+          %a{:href => "http://kanjivg.tagaini.net/"} KanjiVG
+          is copyright © 2009-2015 Ulrich Apel and released under the 
+          %a{:href => "http://creativecommons.org/licenses/by-sa/3.0/"} Creative Commons Attribution-Share Alike 3.0
+          license.

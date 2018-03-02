@@ -1,0 +1,10 @@
+%h1.title
+  %span{:lang => "ja"} 字
+  = "| #{@list.name}"
+
+= link_to 'Edit List', edit_list_path(@list), class: 'btn primary'
+
+#kanji-list
+  = render(partial: 'kanji/list', locals: { kanji: @kanji })
+
+= link_to 'Delete List', list_path(@list), method: :delete, class: 'btn primary'

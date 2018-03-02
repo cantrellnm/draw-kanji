@@ -1,0 +1,4 @@
+- js = escape_javascript(
+- render(partial: 'kanji/list', locals: { kanji: @kanji }).html_safe
+- )
+$("#kanji-list").html("#{js}");

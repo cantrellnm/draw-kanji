@@ -1,0 +1,23 @@
+%h1.title
+  %span{:lang => "ja"} 字
+  | Search
+= form_for(request.path, method: :get, remote: true, html: { class: 'form form-inline', id: 'filter-form'}) do |f|
+  %button.btn.primary#reset
+    Reset
+  %button.btn#form-toggle{"aria-controls" => "collapseForm", "aria-expanded" => "false", "data-target" => "#collapseForm", "data-toggle" => "collapse", :type => "button"}
+    = image_tag(asset_path('icons/settings.svg'))
+  #collapseForm.collapse
+    .form-group
+      %label
+        Filter by:
+        = select_tag 'filter', grouped_options_for_select(filter_options), :include_blank => 'Select', class: 'form-control'
+        %select.form-control{name: 'level', style: 'display:none'}
+    .form-group.pull-right
+      %label
+        Search for:
+        %input.form-control{type: 'text', name: 'query'}
+#kanji-list
+  = render(                     |
+      partial: 'kanji/list',    |
+      locals: { kanji: @kanji } |
+    )                           |

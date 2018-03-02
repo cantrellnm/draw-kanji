@@ -1,0 +1,19 @@
+%h1.title
+  %span{:lang => "ja"} 字
+  = "| #{current_user.username}"
+  
+%h3 
+  Kanji Lists
+  = link_to "New List", new_list_path, class: 'btn primary'
+- unless @lists.count > 0
+  %p No lists found.
+- else
+  %table.table.table-hover
+    %thead
+      %th Name of List
+      %th # of Kanji
+    %tbody
+    - @lists.each do |list|
+      %tr.link{'data-url' => url_for(list_path list), :role => "link"}
+        %td= list.name
+        %td= list.kanjis.size

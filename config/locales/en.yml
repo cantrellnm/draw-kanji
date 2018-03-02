@@ -1,0 +1,38 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+
+en:
+  activerecord:
+    models:
+      kanji:
+        zero:  kanji
+        one:   kanji
+        few:   kanji
+        other: kanji
+  will_paginate:
+    kanji:
+      page_entries_info:
+        single_page:
+          zero:  "No kanji found"
+          one:   "Displaying one kanji found"
+          other: "Displaying all %{count} kanji"
+        multi_page: "Displaying kanji %{from} of %{count} in total"
+        single_page_html:
+          zero:  "No kanji found"
+          one:   "Displaying one kanji found"
+          other: "Displaying all %{count} kanji"
+        multi_page_html: "Displaying kanji <b>%{from} - %{to}</b> of <b>%{count}</b> in total"
+

@@ -1,0 +1,28 @@
+%h1.kanji-title
+  %span.character{:lang => "ja"}
+    - if (request.path == "/kanji/#{URI.escape(k.character)}")
+      = k.character
+    - else
+      = link_to k.character, kanji_path(character: k.character)
+  |
+  \#{k.meaning}
+  %small
+    %em
+      (#{k.category})
+%h2.readings
+  - if (k.onyomi)
+    on:
+    %span#onyomi{:lang => "ja"}= k.onyomi
+  - if (k.kunyomi)
+    | kun:
+    %span#kunyomi{:lang => "ja"}= k.kunyomi
+%p.levels
+  - if (k.joyo_level && k.joyo_level > 0)
+    jōyō:
+    %span.level= k.joyo_level
+  - if (k.jlpt_level)
+    | jlpt:
+    %span.level= k.jlpt_level
+  - if (k.wk_level && k.wk_level > 0)
+    | wanikani:
+    %span.level= k.wk_level

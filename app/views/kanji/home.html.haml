@@ -1,0 +1,45 @@
+%h1.title
+  %span{:lang => "ja"} 字
+  | Practice
+= form_for(root_path, remote: true, method: :get, html: { class: 'form form-inline', id: 'filter-form'}) do |f|
+  .form-group
+    = f.submit 'Next Kanji', class: 'btn primary'
+  %button.btn#form-toggle{"aria-controls" => "collapseForm", "aria-expanded" => "false", "data-target" => "#collapseForm", "data-toggle" => "collapse", :type => "button"}
+    = image_tag(asset_path('icons/settings.svg'))
+  #collapseForm.collapse
+    .form-group
+      %label
+        Filter by:
+        = select_tag 'filter', grouped_options_for_select(filter_options), :include_blank => 'Select', class: 'form-control'
+        %select.form-control{name: 'level', style: 'display:none'}
+    .form-group
+      %label
+        %input#random{name: 'random', type: 'checkbox'} Random
+      %input#kanji-page{name: 'page', type: 'number', value: @page+1, style: 'display:none'}
+%p#page-info
+  - if @total
+    = "Displaying #{@page} of #{@total}"
+#kanji-info
+  = render(                    |
+      partial: 'kanji/single', |
+      locals: { k: @k }        |
+    )                          |
+#practice-area
+  = render(                  |
+      partial: 'kanji/draw', |
+      locals: { k: @k }      |
+    )                        |
+.buttons
+  %label
+    %input#grid{type: 'checkbox', checked: true} Grid
+  %label
+    %input#stroke-numbers{type: 'checkbox', checked: true} Numbers
+  %button#clear.btn.primary Clear
+  %button#undo.btn.secondary Undo
+#draw-finish{style: 'display: none;'}
+  .dialog-box
+    %h1#result Well done!
+    %p Would you like to go again or move on to the next kanji?
+    .buttons
+      %button#next.btn.primary{tabindex: 1} Next
+      %button#again.btn{tabindex: 0} Again

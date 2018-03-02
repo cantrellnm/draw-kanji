@@ -1,0 +1,7 @@
+%h1.title
+  %span{:lang => "ja"} 字 
+  = "| Edit List: #{@list.name}" 
+
+= render 'form'
+
+%p= link_to 'Go Back', :back

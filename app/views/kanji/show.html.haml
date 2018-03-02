@@ -1,0 +1,21 @@
+= render(                    |
+    partial: 'kanji/single', |
+    locals: { k: @k }        |
+  )                          |
+#practice-area
+  = render(                  |
+      partial: 'kanji/draw', |
+      locals: { k: @k }      |
+    )                        |
+.buttons
+  %label
+    %input#grid{type: 'checkbox', checked: true} Grid
+  %label
+    %input#stroke-numbers{type: 'checkbox', checked: true} Numbers
+  %button#clear.btn.primary Clear
+  %button#undo.btn.secondary Undo
+#draw-finish{style: 'display: none;'}
+  .dialog-box
+    %h1#result Well done!
+    .buttons
+      %button#again.btn.primary{tabindex: 0} Continue

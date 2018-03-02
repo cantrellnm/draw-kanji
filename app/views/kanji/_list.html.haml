@@ -1,0 +1,26 @@
+= will_paginate kanji
+.page-info
+  = page_entries_info kanji
+%table.table.table-hover
+  %thead
+    %tr
+      %th Kanji
+      %th Category
+      %th Jōyō
+      %th JLPT
+      %th WaniKani
+      %th Meaning
+      %th On'yomi
+      %th Kun'yomi
+  %tbody
+    - kanji.each do |k|
+      %tr.link{'data-url' => url_for(kanji_path(character: k.character)), :role => "link"}
+        %td.character{:lang => "ja"}= k.character
+        %td= k.category
+        %td= (k.joyo_level && k.joyo_level > 0)? k.joyo_level : '-'
+        %td= (k.jlpt_level)? k.jlpt_level : '-'
+        %td= (k.wk_level > 0)? k.wk_level : '-'
+        %td= k.meaning
+        %td{:lang => "ja"}= k.onyomi
+        %td{:lang => "ja"}= k.kunyomi
+= will_paginate kanji
