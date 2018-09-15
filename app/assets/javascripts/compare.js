@@ -1,7 +1,7 @@
 $(document).on('turbolinks:load', drawSetup);
 $(document).ajaxComplete(drawSetup);
 
-function drawSetup() {
+async function drawSetup() {
   var canvas, ctx, points, svgPaths, svgData, svg, correctPathPoints, svgPathPoints;
   
   canvas = document.getElementById('draw');
@@ -9,10 +9,12 @@ function drawSetup() {
     ctx = canvas.getContext('2d');
     points = [];
     svgPaths = [];
-    svgData = function() { return '<svg xmlns="http://www.w3.org/2000/svg">'+
+    svgData = function() {
+      return '<svg xmlns="http://www.w3.org/2000/svg">'+
       '<g style="fill:none;stroke:#000000;stroke-width:'+canvas.width/40+'stroke-linecap:round;stroke-linejoin:round;">'+
       svgPaths.join('\n')+
-      '</g></svg>'; };
+      '</g></svg>';
+    };
     svg = new Image();
     correctPathPoints = svgToPoints(document.querySelector('#kanjivg svg'));
     svgPathPoints = [];
@@ -21,7 +23,7 @@ function drawSetup() {
     ctx.lineCap = 'round';
     
     resizeCanvas();
-    updateSvg();
+    await updateSvg();
     drawCanvas();
     
     toggleGrid();
@@ -101,7 +103,7 @@ function drawSetup() {
   }
   //finish drawing line
   function endLine() {
-    if (points) {
+    if (points.length > 0) {
       canvas.removeEventListener('mousemove', drawLine, false);
       canvas.removeEventListener('touchmove', drawLine, false);
       pointsToSvg();
@@ -110,45 +112,45 @@ function drawSetup() {
       }
     }
   }
-  function pointsToSvg() {
+  async function pointsToSvg() {
     var pathIndex, i, d = 'M';
     if (points.length === 0) { return; }
+    
     // first point
     d += points[0].x +','+ points[0].y;
-    for (i = 1; i < points.length - 2; i ++) {
+    for (i = 1; i < points.length - 2; i++) {
       var xc = (points[i].x + points[i + 1].x) / 2;
       var yc = (points[i].y + points[i + 1].y) / 2;
       d += ' Q'+points[i].x+','+points[i].y+', '+xc+','+yc;
     }
     // curve through the last two points
     d += ' Q'+points[i].x+','+points[i].y+', '+points[i+1].x+','+points[i+1].y;
+    
     svgPaths.push('<path stroke-linecap="round" stroke-width="'+canvas.width/40+'" d="'+d+'" />');
-    updateSvg();
+    await updateSvg();
     svgPathPoints = svgToPoints(parseSvg());
+    
     //check if correct
     pathIndex = svgPaths.length-1;
     if (!correctPathPoints[pathIndex] || !comparePath(pathIndex)) {
       svgPaths[pathIndex] = '<path style="stroke:red;" stroke-linecap="round" stroke-width="'+canvas.width/40+'" d="'+d+'" />';
-      updateSvg();
+      await updateSvg();
     }
+    
     points = [];
     drawCanvas();
   }
   //undo or clear
-  function undoLine() {
+  async function undoLine() {
     svgPaths.pop();
     svgPathPoints.pop();
-    updateSvg();
+    await updateSvg();
     drawCanvas();
   }
-  function clearAll() {
-    // ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // if ($('#grid').is(':checked')) {
-    //   drawGrid();
-    // }
+  async function clearAll() {
     svgPaths = [];
     svgPathPoints = [];
-    updateSvg();
+    await updateSvg();
     drawCanvas();
   }
   //key down
@@ -189,7 +191,10 @@ function drawSetup() {
   
   // UPDATE/SAVE CANVAS
   function updateSvg() {
-    svg.src = 'data:image/svg+xml;base64,'+window.btoa(svgData());
+    return new Promise((resolve) => {
+      svg.onload = () => resolve();
+      svg.src = 'data:image/svg+xml;base64,'+window.btoa(svgData());
+    });
   }
   // function openSvg() {
   //   // var imgURI = canvas.toDataURL('image/svg');
@@ -260,7 +265,7 @@ function drawSetup() {
   function comparePath(i) {
     var p1 = svgPathPoints[i],
         p2 = correctPathPoints[i],
-        dev = 10, // 7 percent deviation from correct is allowed
+        dev = 10, // 10 percent deviation from correct is allowed
         similar = true;
     for (var i=0; i<p1.length; i++) {
       if (p1[i].x < p2[i].x - dev || p1[i].x > p2[i].x + dev
