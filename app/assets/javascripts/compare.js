@@ -102,11 +102,11 @@ async function drawSetup() {
     ctx.stroke();
   }
   //finish drawing line
-  function endLine() {
+  async function endLine() {
     if (points.length > 0) {
       canvas.removeEventListener('mousemove', drawLine, false);
       canvas.removeEventListener('touchmove', drawLine, false);
-      pointsToSvg();
+      await pointsToSvg();
       if (svgPaths.length > 0 && svgPathPoints.length === correctPathPoints.length) {
         finishKanji();
       }
