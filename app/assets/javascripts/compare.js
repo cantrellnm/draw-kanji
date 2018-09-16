@@ -192,7 +192,7 @@ async function drawSetup() {
   // UPDATE/SAVE CANVAS
   function updateSvg() {
     return new Promise((resolve) => {
-      svg.onload = () => resolve();
+      svg.onload = function() { resolve();};
       svg.src = 'data:image/svg+xml;base64,'+window.btoa(svgData());
     });
   }
