@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
+ruby '2.5.5'
 
 gem 'devise', '~> 4.2.0'
 gem 'haml', '~> 4.0'
