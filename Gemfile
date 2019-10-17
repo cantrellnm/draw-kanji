@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.5.5'
 
-gem 'devise', '~> 4.2.0'
+gem 'devise', '~> 4.7.1'
 gem 'haml', '~> 4.0'
 gem 'will_paginate', '~> 3.1.0'
 
